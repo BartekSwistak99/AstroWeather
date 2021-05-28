@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="refresh_intervals">
+        <item>1s</item>
+        <item>5s</item>
+        <item>15s</item>
+        <item>30s</item>
+        <item>60s</item>
+    </string-array>
+    <string-array name="longitude_array">
+        <item>E</item>
+        <item>W</item>
+    </string-array>
+    <string-array name="latitude_array">
+        <item>N</item>
+        <item>S</item>
+    </string-array>
+</resources>

@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">AstroWeather</string>
+    <string name="enter_data">Enter your location</string>
+    <string name="latitude">Latitude </string>
+    <string name="longitude">Longitude </string>
+    <string name="incorrect">Incorrect entry! </string>
+    <string name="button_continue">Continue </string>
+    <string name="button_cancel">Cancel </string>
+    <string name="refresh_interval">Refresh interval </string>
+    <string name="title_activity_info">ScrollingActivity</string>
+
+
+    <string name="sun">Sun </string>
+    <string name="sunrise_time">Sunrise time: </string>
+    <string name="sunrise_azimuth">Sunrise azimuth: </string>
+    <string name="sunrise_civil">Sunrise civil time: </string>
+    <string name="twilight_time">Twilight time: </string>
+    <string name="twilight_azimuth">Twilight azimuth: </string>
+    <string name="twilight_civil">Twilight civil time: </string>
+
+    <string name="moon">Moon </string>
+    <string name="moonrise_time">Moonrise time: </string>
+    <string name="moonset_time">Moonset time: </string>
+
+    <string name="new_moon">Next new moon: </string>
+    <string name="full_moon">Next full moon: </string>
+    <string name="moon_phase">Moon phase: </string>
+    <string name="moon_age">Moon age: </string>
+    <string name="actual_time">Actual time: </string>
+    <string name="location">Location: </string>
+
+
+
+    <string name="action_settings">Settings</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

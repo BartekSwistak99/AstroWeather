@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id = "@+id/nestedScrollView"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".InfoActivity"
+    tools:showIn="@layout/activity_info">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_marginHorizontal="20sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/actual_time"
+                android:textSize="24sp" />
+
+            <TextClock
+                android:layout_marginHorizontal="20sp"
+                android:id="@+id/clockView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:textSize="24sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_marginHorizontal="20sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/location"
+                android:textSize="24sp" />
+
+            <TextView
+                android:layout_marginHorizontal="20sp"
+                android:id="@+id/locationView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:textSize="24sp" />
+        </LinearLayout>
+
+
+        <fragment
+            android:id="@+id/SunFragment"
+            android:name="com.example.astroweather.SunFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="25dp">
+
+        </fragment>
+
+        <fragment
+            android:id="@+id/MoonFragment"
+            android:name="com.example.astroweather.MoonFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            >
+
+        </fragment>
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
