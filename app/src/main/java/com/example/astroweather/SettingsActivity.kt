@@ -1,28 +1,26 @@
 package com.example.astroweather
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
 import android.util.Log
 import android.view.View
-import android.view.inputmethod.InputMethodManager
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Spinner
-import android.widget.TextView
+import android.widget.*
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.addTextChangedListener
 import com.google.android.material.snackbar.Snackbar
 
 
-class MainActivity : AppCompatActivity() {
+class SettingsActivity : AppCompatActivity() {
     private var refreshInterval: Int = 15
     private var refreshIntervalPrev: Int = 30
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_settings)
         val latitudePrev = intent.getDoubleExtra("latitude", 0.0)
         val longitudePrev = intent.getDoubleExtra("longitude", 0.0)
         this.refreshIntervalPrev = intent.getIntExtra("refresh", 30)
@@ -51,15 +49,35 @@ class MainActivity : AppCompatActivity() {
         }
 //        refreshIntervalSpinner.setSelection(1)
 
+        val citySpinner = findViewById<Spinner>(R.id.locationList)
+        citySpinner.initValues(R.array.locations, this)
 
+        val editText:EditText = findViewById(R.id.newLocation)
+        editText.addTextChangedListener{
+            citySpinner.setSelection(0)
+        }
 
+        citySpinner.onItemSelectedListener = object : OnItemSelectedListener {
+            override fun onItemSelected(
+                parentView: AdapterView<*>?,
+                selectedItemView: View,
+                position: Int,
+                id: Long
+            ) {
+                editText.setText("")
+            }
 
-                
+            override fun onNothingSelected(parentView: AdapterView<*>?) {
+                // your code here
+            }
+        }
+
         val latitudeSpinner = findViewById<Spinner>(R.id.latitude_spinner)
         latitudeSpinner.initValues(R.array.latitude_array, this)
 
         val longitudeSpinner = findViewById<Spinner>(R.id.longitude_spinner)
         longitudeSpinner.initValues(R.array.longitude_array, this)
+
         val parentLayout: View = findViewById(android.R.id.content)
         val button = findViewById<Button>(R.id.button)
         button.setOnClickListener {
@@ -86,7 +104,7 @@ class MainActivity : AppCompatActivity() {
             this.refreshInterval = intervalStr.toInt()
             Log.i("sel", "selected:" +intervalStr )
 
-            val intent = Intent(this@MainActivity,InfoActivity::class.java)
+            val intent = Intent(this@SettingsActivity,InfoActivity::class.java)
             intent.putExtra("latitude",latitude)
             intent.putExtra("longitude",longitude)
             intent.putExtra("refresh",this.refreshInterval)
@@ -94,7 +112,7 @@ class MainActivity : AppCompatActivity() {
         }
         val button2 = findViewById<Button>(R.id.button2)
         button2.setOnClickListener {
-            val intent = Intent(this@MainActivity,InfoActivity::class.java)
+            val intent = Intent(this@SettingsActivity,InfoActivity::class.java)
             intent.putExtra("latitude",latitudePrev)
             intent.putExtra("longitude",longitudePrev)
             intent.putExtra("refresh",this.refreshIntervalPrev)
@@ -107,15 +125,12 @@ class MainActivity : AppCompatActivity() {
         ArrayAdapter.createFromResource(
             context,
             arrays,
-            android.R.layout.simple_spinner_item
+            R.layout.spinner_item
         ).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             this.adapter = adapter
         }
     }
-    private fun closeSoftKeyboard(context: Context, v: View) {
-        val iMm = context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        iMm.hideSoftInputFromWindow(v.windowToken, 0)
-        v.clearFocus()
-    }
+
+
 }

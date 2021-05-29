@@ -35,7 +35,7 @@ class InfoActivity : AppCompatActivity() {
 
 
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { _ ->
-            val intent = Intent(this,MainActivity::class.java)
+            val intent = Intent(this,SettingsActivity::class.java)
             intent.putExtra("latitude",location.latitude)
             intent.putExtra("longitude",location.longitude)
             intent.putExtra("refresh",refreshInterval)

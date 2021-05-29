@@ -15,4 +15,10 @@
         <item>N</item>
         <item>S</item>
     </string-array>
+
+    <string-array name="locations">
+        <item>none</item>
+        <item>London</item>
+        <item>Warsaw</item>
+    </string-array>
 </resources>
