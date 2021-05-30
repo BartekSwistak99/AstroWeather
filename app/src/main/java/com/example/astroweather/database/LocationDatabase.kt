@@ -3,14 +3,24 @@ package com.example.astroweather.database
 import android.content.Context
 import androidx.room.*
 
-@Database(entities = [Location::class], version = 1)
+@Database(entities = [Location::class], version = 2)
 abstract class LocationDatabase: RoomDatabase() {
     companion object{
-        fun getInstance(applicationContext: Context,databaseName:String){
-            Room.databaseBuilder(
-                applicationContext,
-                LocationDatabase::class.java, databaseName
-            ).build()
+        @Volatile
+        private var database:LocationDatabase? = null
+
+        fun getDatabase(applicationContext: Context):LocationDatabase{
+            if(database !=null){
+                return database as LocationDatabase
+            }
+            synchronized(this){
+                database =  Room.databaseBuilder(
+                    applicationContext,
+                    LocationDatabase::class.java, "database"
+                ).build()
+                return database  as LocationDatabase
+            }
+
         }
     }
     abstract fun locationDao(): LocationDao

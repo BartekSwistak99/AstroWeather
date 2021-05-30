@@ -7,8 +7,10 @@
     <string name="button_continue">Continue </string>
     <string name="button_cancel">Cancel </string>
     <string name="refresh_interval">Refresh interval </string>
-    <string name="city">or define new one </string>
-    <string name="select_city">Select city</string>
+    <string name="city">or select city </string>
+    <string name="none">none</string>
+    <string name="select_city">Select city </string>
+    <string name="add_new">⚙</string>
     <string name="title_activity_info">AstroWeather</string>
     <string name="temperature_units">Temperature units</string>
     <string name="celsius">°C</string>

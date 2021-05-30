@@ -11,16 +11,22 @@ import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
+import androidx.lifecycle.Observer
+import com.example.astroweather.database.LocationDatabase
+import com.example.astroweather.database.LocationRepository
+import com.example.astroweather.database.LocationViewModel
 import com.google.android.material.snackbar.Snackbar
-
+import androidx.lifecycle.ViewModelProvider
+import com.example.astroweather.database.Location
 
 class SettingsActivity : AppCompatActivity() {
     private var refreshInterval: Int = 15
     private var refreshIntervalPrev: Int = 30
-
+    private lateinit var locationViewModel :LocationViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
+
         val latitudePrev = intent.getDoubleExtra("latitude", 0.0)
         val longitudePrev = intent.getDoubleExtra("longitude", 0.0)
         this.refreshIntervalPrev = intent.getIntExtra("refresh", 30)
@@ -42,35 +48,39 @@ class SettingsActivity : AppCompatActivity() {
             android.R.layout.simple_spinner_item
         )
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        refreshIntervalSpinner.setAdapter(adapter)
-        if (compareValue != null) {
-            val spinnerPosition = adapter.getPosition(compareValue)
-            refreshIntervalSpinner.setSelection(spinnerPosition)
-        }
-//        refreshIntervalSpinner.setSelection(1)
+        refreshIntervalSpinner.adapter = adapter
+        val spinnerPosition = adapter.getPosition(compareValue)
+        refreshIntervalSpinner.setSelection(spinnerPosition)
+                refreshIntervalSpinner.setSelection(1)
+
+
+
+        locationViewModel = ViewModelProvider(this).get(LocationViewModel::class.java)
 
         val citySpinner = findViewById<Spinner>(R.id.locationList)
-        citySpinner.initValues(R.array.locations, this)
 
-        val editText:EditText = findViewById(R.id.newLocation)
-        editText.addTextChangedListener{
-            citySpinner.setSelection(0)
-        }
 
-        citySpinner.onItemSelectedListener = object : OnItemSelectedListener {
-            override fun onItemSelected(
-                parentView: AdapterView<*>?,
-                selectedItemView: View,
-                position: Int,
-                id: Long
-            ) {
-                editText.setText("")
-            }
+        initLocationSpinner(this,citySpinner)
 
-            override fun onNothingSelected(parentView: AdapterView<*>?) {
-                // your code here
-            }
-        }
+
+
+
+
+
+//        citySpinner.onItemSelectedListener = object : OnItemSelectedListener {
+//            override fun onItemSelected(
+//                parentView: AdapterView<*>?,
+//                selectedItemView: View,
+//                position: Int,
+//                id: Long
+//            ) {
+//                editText.setText("")
+//            }
+//
+//            override fun onNothingSelected(parentView: AdapterView<*>?) {
+//                // your code here
+//            }
+//        }
 
         val latitudeSpinner = findViewById<Spinner>(R.id.latitude_spinner)
         latitudeSpinner.initValues(R.array.latitude_array, this)
@@ -119,7 +129,15 @@ class SettingsActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+    private fun initLocationSpinner(context: Context,spinner:Spinner){
 
+        val listOfLocations = locationViewModel.getListOfData().observe(this,
+            Observer {
+                    list ->
+                val spinnerAdapter = ArrayAdapter(context,R.layout.spinner_item,list)
+                spinner.adapter = spinnerAdapter
+        })
+    }
 
     private fun Spinner.initValues(arrays: Int, context: Context) {
         ArrayAdapter.createFromResource(
@@ -127,7 +145,7 @@ class SettingsActivity : AppCompatActivity() {
             arrays,
             R.layout.spinner_item
         ).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            adapter.setDropDownViewResource(R.layout.spinner_item)
             this.adapter = adapter
         }
     }
