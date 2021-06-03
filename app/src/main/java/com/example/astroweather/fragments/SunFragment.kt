@@ -1,8 +1,9 @@
-package com.example.astroweather
+package com.example.astroweather.fragments
 
 import android.os.Bundle
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.example.astroweather.R
 
 
 class SunFragment : Fragment(R.layout.fragment_sun) {

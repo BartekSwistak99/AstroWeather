@@ -1,12 +1,16 @@
-package com.example.astroweather
+package com.example.astroweather.activities
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.astrocalculator.AstroCalculator
 import com.astrocalculator.AstroDateTime
+import com.example.astroweather.R
+import com.example.astroweather.fragments.MoonFragment
+import com.example.astroweather.fragments.SunFragment
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.util.*
@@ -20,10 +24,11 @@ class InfoActivity : AppCompatActivity() {
 
     private lateinit var astroCalc: AstroCalculator
     private lateinit var sunInfo: AstroCalculator.SunInfo
-    private  var refreshInterval: Int = 30
+    private var refreshInterval: Int = 30
     private lateinit var moonFragment: MoonFragment
     private lateinit var sunFragment: SunFragment
-
+    private var isCelsius: Boolean = true
+    private var cityName: String = "none"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,10 +40,10 @@ class InfoActivity : AppCompatActivity() {
 
 
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { _ ->
-            val intent = Intent(this,SettingsActivity::class.java)
-            intent.putExtra("latitude",location.latitude)
-            intent.putExtra("longitude",location.longitude)
-            intent.putExtra("refresh",refreshInterval)
+            val intent = Intent(this, SettingsActivity::class.java)
+            intent.putExtra("latitude", location.latitude)
+            intent.putExtra("longitude", location.longitude)
+            intent.putExtra("refresh", refreshInterval)
             startActivity(intent)
         }
         moonFragment = supportFragmentManager.findFragmentById(R.id.MoonFragment) as MoonFragment
@@ -50,15 +55,20 @@ class InfoActivity : AppCompatActivity() {
 
         val latitude = intent.getDoubleExtra("latitude", 0.0)
         val longitude = intent.getDoubleExtra("longitude", 0.0)
+        isCelsius = intent.getBooleanExtra("isCelsius", true)
+        cityName = intent.getStringExtra("selectedCity") ?: "none"
 
-        val str:String = if(latitude>=0) "$latitude N"
+        Toast.makeText(this,"units:$isCelsius city:$cityName",Toast.LENGTH_SHORT).show()
+        val str: String = if (latitude >= 0) "$latitude N"
         else "${-latitude} S"
-        val str2:String = if(longitude>=0) "$longitude E"
+        val str2: String = if (longitude >= 0) "$longitude E"
         else "${-longitude} W"
 
         val locationView = findViewById<TextView>(R.id.locationView)
-
-        locationView.text = "$str $str2"
+        if(cityName !="none")
+            locationView.text = cityName
+        else
+            locationView.text = "$str $str2"
 
         initAstro(latitude, longitude)
         updateMoon()
@@ -72,7 +82,7 @@ class InfoActivity : AppCompatActivity() {
                         .get(Calendar.SECOND)
                 ) {
                     this@InfoActivity.runOnUiThread {
-                        astroCalc = AstroCalculator(astroTimeFacotry(nowCalendar),location)
+                        astroCalc = AstroCalculator(astroTimeFacotry(nowCalendar), location)
                         refreshCalendar.add(Calendar.SECOND, refreshInterval)
                         sunInfo = astroCalc.sunInfo
                         moonInfo = astroCalc.moonInfo

@@ -10,12 +10,12 @@
     <string name="city">or select city </string>
     <string name="none">none</string>
     <string name="select_city">Select city </string>
-    <string name="add_new">⚙</string>
+    <string name="add">add</string>
     <string name="title_activity_info">AstroWeather</string>
     <string name="temperature_units">Temperature units</string>
     <string name="celsius">°C</string>
     <string name="Fahrenheit">°F</string>
-
+    <string name="add_location">Enter city name</string>
 
 
     <string name="sun">Sun </string>
@@ -29,6 +29,7 @@
     <string name="moon">Moon </string>
     <string name="moonrise_time">Moonrise time: </string>
     <string name="moonset_time">Moonset time: </string>
+    <string name="refresh_data">Refresh data</string>
 
     <string name="new_moon">Next new moon: </string>
     <string name="full_moon">Next full moon: </string>
@@ -36,9 +37,11 @@
     <string name="moon_age">Moon age: </string>
     <string name="actual_time">Actual time: </string>
     <string name="location">Location: </string>
-
+    <string name="location_name">Lodz </string>
+    <string name="no_internet">No internet connection! </string>
 
 
     <string name="action_settings">Settings</string>
+
 
 </resources>

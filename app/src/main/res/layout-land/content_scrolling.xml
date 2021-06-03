@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:id = "@+id/nestedScrollView"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".InfoActivity"
+    tools:context=".activities.InfoActivity"
     tools:showIn="@layout/activity_info">
 
     <LinearLayout
@@ -58,7 +58,7 @@
 
         <fragment
             android:id="@+id/SunFragment"
-            android:name="com.example.astroweather.SunFragment"
+            android:name="com.example.astroweather.fragments.SunFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="25dp">
@@ -67,7 +67,7 @@
 
         <fragment
             android:id="@+id/MoonFragment"
-            android:name="com.example.astroweather.MoonFragment"
+            android:name="com.example.astroweather.fragments.MoonFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="50dp"

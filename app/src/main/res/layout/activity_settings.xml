@@ -4,14 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SettingsActivity">
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline6"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.73" />
+    tools:context=".activities.SettingsActivity">
 
     <androidx.appcompat.widget.AppCompatSpinner
         android:id="@+id/longitude_spinner"
@@ -108,11 +101,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="25dp"
         android:text="@string/refresh_interval"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline6" />
+        app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
     <Spinner
         android:id="@+id/spinner_refresh_interval"
@@ -131,7 +124,7 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.82" />
+        app:layout_constraintGuide_end="96dp" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -174,7 +167,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5" />
+        app:layout_constraintGuide_percent="0.45" />
 
     <TextView
         android:id="@+id/textView12"
@@ -194,7 +187,7 @@
         android:layout_marginEnd="5dp"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/textView12"
-        app:layout_constraintEnd_toStartOf="@+id/button3"
+        app:layout_constraintEnd_toStartOf="@+id/button_add_new"
         app:layout_constraintStart_toStartOf="@+id/longitudeText"
         app:layout_constraintTop_toTopOf="@+id/textView12" />
 
@@ -203,58 +196,91 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:layout_marginBottom="25dp"
+        android:layout_marginTop="25dp"
         android:text="@string/temperature_units"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline6"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@+id/textView14"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintStart_toEndOf="@+id/textView14"
         app:layout_constraintTop_toTopOf="@+id/textView14">
 
         <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/switch2"
-            android:textColor="@color/white"
-            android:theme="@style/SwitchStyle"
+            android:id="@+id/unit_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/celsius"
+            android:textColor="@color/white"
             android:textSize="24sp"
+            android:theme="@style/SwitchStyle"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/textView17"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/textView17"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/Fahrenheit"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="@+id/switch2"
 
-            app:layout_constraintStart_toEndOf="@+id/switch2"
-            app:layout_constraintTop_toTopOf="@+id/switch2" />
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="@+id/unit_switch"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/unit_switch"
+            app:layout_constraintVertical_bias="0.0" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageButton
-        android:id="@+id/button3"
+        android:id="@+id/button_add_new"
         android:layout_width="wrap_content"
-
+        android:background="@drawable/ic_add"
         android:layout_height="wrap_content"
-        android:background="@android:drawable/ic_menu_preferences"
+        android:layout_marginEnd="15dp"
         android:backgroundTint="@color/white"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/textView12"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline8"
-        app:srcCompat="@android:drawable/ic_menu_manage" />
+        />
 
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="@string/refresh_data"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="@+id/textView12"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView16"
+        app:layout_constraintEnd_toEndOf="@+id/button_add_new"
+        app:layout_constraintStart_toStartOf="@+id/button_add_new"
+        app:layout_constraintTop_toTopOf="@+id/textView16"
+        app:srcCompat="@drawable/ic_refresh" />
+
+    <TextView
+        android:id="@+id/internet_error"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:text="@string/no_internet"
+        android:textColor="@color/red"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/guideline7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
