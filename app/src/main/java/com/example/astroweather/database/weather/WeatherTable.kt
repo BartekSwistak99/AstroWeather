@@ -28,6 +28,10 @@ class WeatherTable {
     var id: Long = 0
     lateinit var name: String
     var cod: Int = 0
+    override fun toString(): String {
+        return name
+    }
+    var isUserFavourite = false
 }
 
 data class Cords(var lon: Double, var lat: Double) {
@@ -52,7 +56,8 @@ data class Main(
 
 data class Wind(
     var speed: Double,
-    var deg: Int
+    var deg: Int,
+    var gust:Double = 0.0
 )
 data class Clouds(
     var all: Int
@@ -62,7 +67,7 @@ data class Sys(
     @ColumnInfo(name = "sys_id")
 
     var id: Long,
-    var country: String,
+    var country: String?,
     var sunrise: Long,
     var sunset: Long
 )

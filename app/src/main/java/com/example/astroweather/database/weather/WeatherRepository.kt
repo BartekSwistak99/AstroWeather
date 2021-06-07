@@ -1,15 +1,15 @@
-    package com.example.astroweather.database
+    package com.example.astroweather.database.weather
 
 import androidx.lifecycle.LiveData
 import com.example.astroweather.WeatherTable
 
-class WeatherRepository(private val locationDao : WeatherDao){
+    class WeatherRepository(private val weatherDao : WeatherDao){
 
-    private val allWeathers :LiveData<List<WeatherTable>> = locationDao.getAll()
+    private val allWeathers :LiveData<List<WeatherTable>> = weatherDao.getAll()
 //    private val allLocations:LiveData<List<WeatherTable>> = locationDao.getAll()
 
     fun addWeather(weatherTable:WeatherTable){
-        locationDao.insert(weatherTable)
+        weatherDao.insert(weatherTable)
     }
 
 

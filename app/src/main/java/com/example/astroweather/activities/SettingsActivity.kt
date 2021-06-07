@@ -13,7 +13,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.astroweather.InternetConnection
 import com.example.astroweather.R
-import com.example.astroweather.database.WeatherViewModel
+import com.example.astroweather.database.forecast.ForecastViewModel
+import com.example.astroweather.database.weather.WeatherViewModel
 import com.example.astroweather.fragments.LocationsDialogFragment
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.*
@@ -24,11 +25,11 @@ class SettingsActivity : AppCompatActivity() {
     private var refreshInterval: Int = 15
     private var refreshIntervalPrev: Int = 30
     private lateinit var weathersViewModel: WeatherViewModel
+    private lateinit var forecastsViewModel: ForecastViewModel
     private var context: Context = this
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
-
         val latitudePrev = intent.getDoubleExtra("latitude", 0.0)
         val longitudePrev = intent.getDoubleExtra("longitude", 0.0)
         this.refreshIntervalPrev = intent.getIntExtra("refresh", 30)
@@ -57,14 +58,18 @@ class SettingsActivity : AppCompatActivity() {
 
 
         weathersViewModel = ViewModelProvider(this).get(WeatherViewModel::class.java)
+        forecastsViewModel = ViewModelProvider(this).get(ForecastViewModel::class.java)
 
         thread {
             val connectionError: TextView = findViewById(R.id.internet_error)
             while (true) {
-                if (InternetConnection.isOnline(context))
-                    connectionError.visibility = View.INVISIBLE
-                else
-                    connectionError.visibility = View.VISIBLE
+                this@SettingsActivity.runOnUiThread{
+                    if (InternetConnection.isOnline(context))
+                        connectionError.visibility = View.INVISIBLE
+                    else
+                        connectionError.visibility = View.VISIBLE
+                }
+
                 sleep(1000)
             }
         }
@@ -81,7 +86,7 @@ class SettingsActivity : AppCompatActivity() {
 
                 errorBuilder.show()
             } else {
-                val locationFragment = LocationsDialogFragment(weathersViewModel)
+                val locationFragment = LocationsDialogFragment(weathersViewModel,forecastsViewModel)
                 locationFragment.show(supportFragmentManager, "tag")
             }
 
@@ -90,6 +95,45 @@ class SettingsActivity : AppCompatActivity() {
         latitudeSpinner.initValues(R.array.latitude_array, this)
         val longitudeSpinner = findViewById<Spinner>(R.id.longitude_spinner)
         longitudeSpinner.initValues(R.array.longitude_array, this)
+        val fav:Button = findViewById(R.id.buttonfav)
+        fav.setOnClickListener {
+            var latitude = 0.0
+            var longitude = 0.0
+            try {
+                latitude = latitudeField.text.toString().toDouble()
+                longitude = longitudeField.text.toString().toDouble()
+                if (latitude > 90 || longitude > 90)
+                    throw java.lang.NumberFormatException()
+            } catch (e: NumberFormatException) {
+                Toast.makeText(this,R.string.incorrect,Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (latitudeSpinner.selectedItemPosition > 0) {
+                latitude = -latitude
+            }
+            if (longitudeSpinner.selectedItemPosition > 0) {
+                longitude = -longitude
+            }
+            InternetConnection.downloadWeatherByCords(latitude,longitude,weathersViewModel,this,isFavourite = true)
+            InternetConnection.downloadForecastByCords(latitude,longitude,forecastsViewModel,this)
+            Toast.makeText(this,"added to favourites",Toast.LENGTH_SHORT).show()
+        }
+        val delete:Button = findViewById(R.id.buttondelete)
+        delete.setOnClickListener {
+            val selectedCity:String = locationSpinner.selectedItem.toString()
+
+            if(selectedCity =="none"){
+                Toast.makeText(this,"city not selected!",Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            val weather = weathersViewModel.getLocationByName(selectedCity)
+            weather?.isUserFavourite = false
+            initLocationSpinner(this, locationSpinner)
+
+            Toast.makeText(this,"city ${weather?.name} deleted",Toast.LENGTH_SHORT).show()
+
+        }
+
 
         val parentLayout: View = findViewById(android.R.id.content)
         val button = findViewById<Button>(R.id.button)
@@ -126,6 +170,10 @@ class SettingsActivity : AppCompatActivity() {
                 latitude = weather?.coord?.lat ?: 0.0
                 longitude = weather?.coord?.lon ?: 0.0
             }
+            else{
+              InternetConnection.downloadWeatherByCords(latitude,longitude,weathersViewModel,this)
+              InternetConnection.downloadForecastByCords(latitude,longitude,forecastsViewModel,this)
+            }
 
             val intent = Intent(this@SettingsActivity, InfoActivity::class.java)
             intent.putExtra("latitude", latitude)
@@ -145,6 +193,24 @@ class SettingsActivity : AppCompatActivity() {
             intent.putExtra("selectedCity", "none")
             startActivity(intent)
         }
+
+        val refresh :ImageView = findViewById(R.id.refresh)
+        refresh.setOnClickListener {
+            val selectedCity:String = locationSpinner.selectedItem.toString()
+            if(selectedCity != "none"){
+                InternetConnection.downloadWeatherByCityName(selectedCity,weathersViewModel,false,this)
+                InternetConnection.downloadForecastByCityName(selectedCity,forecastsViewModel,this)
+                Toast.makeText(this,"weather refreshed",Toast.LENGTH_SHORT).show()
+            }
+            else{
+                var latitude = latitudeField.text.toString().toDouble()
+                var longitude = longitudeField.text.toString().toDouble()
+                InternetConnection.downloadWeatherByCords(latitude,longitude,weathersViewModel,this)
+                InternetConnection.downloadForecastByCords(latitude,longitude,forecastsViewModel,this)
+                Toast.makeText(this,"weather refreshed",Toast.LENGTH_SHORT).show()
+            }
+
+        }
     }
 
     private fun initLocationSpinner(context: Context, spinner: Spinner) {
@@ -152,11 +218,12 @@ class SettingsActivity : AppCompatActivity() {
         val listOfWeathers = weathersViewModel.getAllWeathers().observe(this,
             Observer {
 //                    list ->
-                var locationList: MutableList<String>? = weathersViewModel.getAllSavedLocations()?.toMutableList()
+                var locationList: MutableList<String>? = weathersViewModel.getAllFavouriteLocations()?.toMutableList()
                 if (locationList == null) {
                     locationList = emptyList<String>().toMutableList()
                 }
                 locationList.add(0,"none")
+
                 val spinnerAdapter = ArrayAdapter(context, R.layout.spinner_item, locationList)
                 spinner.adapter = spinnerAdapter
             })
@@ -173,6 +240,5 @@ class SettingsActivity : AppCompatActivity() {
             this.adapter = adapter
         }
     }
-
 
 }

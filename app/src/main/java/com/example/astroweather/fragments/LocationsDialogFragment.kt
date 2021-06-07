@@ -1,18 +1,22 @@
 package com.example.astroweather.fragments
 
 import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.example.astroweather.InternetConnection
 import com.example.astroweather.R
-import com.example.astroweather.database.WeatherViewModel
+import com.example.astroweather.database.forecast.ForecastViewModel
+import com.example.astroweather.database.weather.WeatherViewModel
 
-class LocationsDialogFragment(val weathersViewModel: WeatherViewModel) : DialogFragment() {
+class LocationsDialogFragment(
+    val weathersViewModel: WeatherViewModel,
+    val forecastViewModel: ForecastViewModel
+) : DialogFragment() {
     var dismissFlag = true
     lateinit var entryView: EditText
     lateinit var connectionError: TextView
@@ -25,7 +29,7 @@ class LocationsDialogFragment(val weathersViewModel: WeatherViewModel) : DialogF
             connectionError = view.findViewById(R.id.internet_error)
             if (InternetConnection.isOnline(it))
                 connectionError.visibility = View.INVISIBLE
-            else{
+            else {
                 connectionError.text = getText(R.string.no_internet)
                 connectionError.visibility = View.VISIBLE
 
@@ -50,14 +54,20 @@ class LocationsDialogFragment(val weathersViewModel: WeatherViewModel) : DialogF
         super.onStart()
         (dialog as AlertDialog?)!!.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
             try {
-                InternetConnection.getWeatherByCityName(
+
+                InternetConnection.downloadWeatherByCityName(
                     entryView.text.toString(),
-                    weathersViewModel
+                    weathersViewModel, isFavourite = true, context = context as Context
+                )
+                InternetConnection.downloadForecastByCityName(
+                    entryView.text.toString(),
+                    forecastViewModel,
+                   context as Context
                 )
                 dialog?.dismiss()
             } catch (e: Exception) {
                 entryView.setText("")
-                connectionError.text = "City not found!"
+                connectionError.text = "Can't find city"
                 connectionError.visibility = View.VISIBLE
             }
         }

@@ -29,12 +29,13 @@
 
             <TextView
                 android:id="@+id/textView4"
-                android:layout_width="126dp"
+                android:layout_width="0dp
+"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="8dp"
                 android:text="@string/latitude"
-                android:textSize="24sp"
+                android:textSize="32sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
@@ -49,12 +50,14 @@
                 android:id="@+id/longitudeText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
                 android:ems="5"
                 android:inputType="numberDecimal"
-                android:textSize="24sp"
+
+                android:textSize="32sp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView"
                 app:layout_constraintEnd_toStartOf="@+id/latitude_spinner"
-                app:layout_constraintStart_toEndOf="@+id/textView4"
+                app:layout_constraintStart_toEndOf="@+id/textView"
                 app:layout_constraintTop_toTopOf="@+id/textView" />
 
             <TextView
@@ -62,7 +65,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/enter_data"
-                android:textSize="32sp"
+                android:textSize="42sp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -72,7 +75,8 @@
                 android:id="@+id/latitude_spinner"
                 android:layout_width="100dp"
                 android:layout_height="0dp"
-                android:textSize="24sp"
+                android:textSize="32sp"
+
 
                 app:layout_constraintBottom_toBottomOf="@+id/latitudeText"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -80,11 +84,12 @@
 
             <TextView
                 android:id="@+id/textView"
-                android:layout_width="126dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:text="@string/longitude"
-                android:textSize="24sp"
+                android:textSize="32sp"
+
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
@@ -101,11 +106,12 @@
                 android:layout_height="wrap_content"
                 android:ems="5"
                 android:inputType="numberDecimal"
-                android:textSize="24sp"
+                android:textSize="32sp"
+
                 app:layout_constraintBottom_toBottomOf="@+id/textView4"
                 app:layout_constraintEnd_toStartOf="@+id/latitude_spinner"
                 app:layout_constraintHorizontal_bias="0.1"
-                app:layout_constraintStart_toEndOf="@+id/textView4"
+                app:layout_constraintStart_toStartOf="@+id/longitudeText"
                 app:layout_constraintTop_toTopOf="@+id/textView4" />
 
             <TextView
@@ -115,7 +121,8 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="25dp"
                 android:text="@string/refresh_interval"
-                android:textSize="24sp"
+                android:textSize="32sp"
+
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
@@ -124,7 +131,8 @@
                 android:layout_width="0dp"
                 android:layout_height="37dp"
                 android:textAlignment="textEnd"
-                android:textSize="24sp"
+                android:textSize="32sp"
+
 
                 app:layout_constraintBottom_toBottomOf="@+id/textView5"
                 app:layout_constraintEnd_toEndOf="@+id/longitude_spinner"
@@ -137,7 +145,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.5" />
+                app:layout_constraintGuide_percent="0.48" />
 
             <TextView
                 android:id="@+id/textView12"
@@ -145,7 +153,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:text="@string/select_city"
-                android:textSize="24sp"
+                android:textSize="32sp"
+
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/guideline8" />
 
@@ -155,7 +164,8 @@
                 android:layout_height="wrap_content"
 
                 android:layout_marginEnd="5dp"
-                android:textSize="24sp"
+                android:textSize="32sp"
+
                 app:layout_constraintBottom_toBottomOf="@+id/textView12"
                 app:layout_constraintEnd_toStartOf="@+id/button_add_new"
                 app:layout_constraintStart_toStartOf="@+id/longitudeText"
@@ -168,13 +178,16 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="25dp"
                 android:text="@string/temperature_units"
-                android:textSize="24sp"
+                android:textSize="32sp"
+
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="101dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+
+
                 app:layout_constraintBottom_toBottomOf="@+id/textView14"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textView14">
@@ -185,7 +198,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/celsius"
                     android:textColor="@color/white"
-                    android:textSize="24sp"
+                    android:textSize="32sp"
                     android:theme="@style/SwitchStyle"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/textView17"
@@ -197,7 +210,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/Fahrenheit"
 
-                    android:textSize="24sp"
+                    android:textSize="32sp"
                     app:layout_constraintBottom_toBottomOf="@+id/unit_switch"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/unit_switch"
@@ -211,7 +224,7 @@
                 android:layout_marginEnd="15dp"
                 android:background="@drawable/ic_add"
                 android:backgroundTint="@color/white"
-                android:textSize="24sp"
+                android:textSize="32sp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView12"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/guideline8" />
@@ -220,11 +233,11 @@
                 android:id="@+id/textView16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="25dp"
                 android:text="@string/refresh_data"
-                android:textSize="24sp"
+                android:textSize="32sp"
                 app:layout_constraintStart_toStartOf="@+id/textView12"
-                app:layout_constraintTop_toBottomOf="@+id/buttondelete" />
+                app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
             <ImageView
                 android:id="@+id/refresh"
@@ -238,7 +251,7 @@
 
             <TextView
                 android:id="@+id/internet_error"
-
+                android:textSize="26sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -270,7 +283,20 @@
                 app:layout_constraintEnd_toStartOf="@+id/guideline6"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/button" />
+            <Button
+                android:id="@+id/buttonfav"
+                style="@style/AppTheme.CustomButton"
+                android:textSize="32sp"
 
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_to_favourites"
+                app:backgroundTint="@null"
+                app:layout_constraintBottom_toTopOf="@+id/guideline8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/longitudeText" />
             <Button
                 android:id="@+id/button"
                 style="@style/AppTheme.CustomButton"
@@ -287,33 +313,22 @@
                 app:layout_constraintTop_toBottomOf="@+id/internet_error" />
 
             <Button
-                android:id="@+id/buttonfav"
-                style="@style/AppTheme.CustomButton"
-
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/add_to_favourites"
-                app:backgroundTint="@null"
-                app:layout_constraintBottom_toTopOf="@+id/guideline8"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/longitude_spinner" />
-
-            <Button
                 android:id="@+id/buttondelete"
+                android:textSize="32sp"
 
                 style="@style/AppTheme.CustomButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-
                 android:text="@string/delete"
+
                 app:backgroundTint="@null"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView12" />
+                app:layout_constraintTop_toBottomOf="@+id/button_add_new" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     </ScrollView>
 
 

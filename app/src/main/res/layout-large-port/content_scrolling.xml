@@ -17,60 +17,69 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="50dp"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20sp"
-                android:text="@string/actual_time"
-                android:textSize="32sp" />
-
-            <TextClock
-                android:id="@+id/clockView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20sp"
-
-                android:textSize="32sp" />
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20sp"
-                android:text="@string/location"
+                android:text="@string/last_refresh"
                 android:textSize="32sp" />
 
             <TextView
-                android:id="@+id/locationView"
+                android:id="@+id/last_update"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20sp"
-
-                android:textSize="32sp" />
-
+                android:textSize="32sp"
+                android:gravity="top" />
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/no_internet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20sp"
+            android:text="@string/no_internet"
+            android:textColor="@color/red"
+            android:visibility="invisible" />
+
+
+        <fragment
+            android:id="@+id/WeatherFragment"
+            android:name="com.example.astroweather.fragments.WeatherFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="15dp"
+
+            />
+
+        <fragment
+            android:id="@+id/ExtendedWeatherFragment"
+            android:name="com.example.astroweather.fragments.WeatherExtendedFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp" />
+
+        <fragment
+            android:id="@+id/ForecastFragment"
+            android:name="com.example.astroweather.fragments.ForecastFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp" />
 
         <fragment
             android:id="@+id/SunFragment"
             android:name="com.example.astroweather.fragments.SunFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="50dp">
-
-        </fragment>
+            android:layout_marginBottom="25dp" />
 
         <fragment
             android:id="@+id/MoonFragment"
             android:name="com.example.astroweather.fragments.MoonFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="50dp">
-
-        </fragment>
+            android:layout_marginBottom="25dp" />
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

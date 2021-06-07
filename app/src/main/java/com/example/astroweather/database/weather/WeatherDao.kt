@@ -1,4 +1,4 @@
-package com.example.astroweather.database
+package com.example.astroweather.database.weather
 
 import androidx.lifecycle.LiveData
 import androidx.room.*

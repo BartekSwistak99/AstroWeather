@@ -3,8 +3,11 @@ package com.example.astroweather.database
 import android.content.Context
 import androidx.room.*
 import com.example.astroweather.WeatherTable
+import com.example.astroweather.database.forecast.ForecastDao
+import com.example.astroweather.database.forecast.ForecastTable
+import com.example.astroweather.database.weather.WeatherDao
 
-@Database(entities = [WeatherTable::class], version = 1)
+@Database(entities = [WeatherTable::class, ForecastTable::class], version = 1)
 @TypeConverters(WeatherTypeConverters::class)
 abstract class WeatherDatabase: RoomDatabase() {
     companion object{
@@ -27,4 +30,5 @@ abstract class WeatherDatabase: RoomDatabase() {
         }
     }
     abstract fun WeatherDao(): WeatherDao
+    abstract fun ForecastrDao(): ForecastDao
 }
